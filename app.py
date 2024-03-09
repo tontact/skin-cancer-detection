@@ -1,4 +1,3 @@
-import io
 import numpy as np
 from PIL import Image
 import tensorflow as tf
@@ -8,9 +7,8 @@ import streamlit as st
 model = tf.keras.models.load_model('skin_detect_model.h5')
 
 def preprocess_image(uploaded_image):
-    resized_image = uploaded_image.resize((100, 75))  # Resize image to match the expected input shape
-    image_array = np.array(resized_image)
-    image_array = image_array / 255.
+    resized_image = uploaded_image.resize((100, 75))  # Resize image to match model input shape
+    image_array = np.array(resized_image) / 255.0  # Normalize pixel values
     return image_array
 
 def prediction(image_array):
