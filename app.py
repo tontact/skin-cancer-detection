@@ -8,7 +8,7 @@ import streamlit as st
 model = tf.keras.models.load_model('skin_detect_model.h5')
 
 def preprocess_image(uploaded_image):
-    resized_image = uploaded_image.resize((100, 75))
+    resized_image = uploaded_image.resize((100, 75))  # Resize image to match the expected input shape
     image_array = np.array(resized_image)
     image_array = image_array / 255.
     return image_array
