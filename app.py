@@ -26,7 +26,7 @@ def main():
 
 def predict_class(image):
     classifier_model = tf.keras.models.load_model('skin_detect_model.h5')
-    shape = ((75, 100, 3))  # Expected input shape of the model
+    # shape = ((75, 100, 3))  # Expected input shape of the model
     test_image = image.resize((100, 75))  # Resize the input image to (100, 75)
     test_image = tf.keras.preprocessing.image.img_to_array(test_image)
     test_image = np.expand_dims(test_image, axis=0)
