@@ -22,7 +22,6 @@ def prediction(image_array):
 
 def main():
     st.title('A title with _italics_ :blue[colors] and emojis :sunglasses:')
-    st.title('_Streamlit_ :blue[Prediction App] :sunglasses:')
     st.header('Skin Cancer Classification')
     st.text("Upload a skin Image for image classification")
 
