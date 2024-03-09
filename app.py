@@ -25,13 +25,10 @@ def main():
         st.pyplot(figure)
 
 def predict_class(image):
-    # classifier_model = mod('MlFlow.h5')
     classifier_model = tf.keras.models.load_model('skin_detect_model.h5')
     shape = ((180, 180, 3))
-    # model = tf.keras.Sequential(classifier_model)
-    test_image = image.resize((180, 180))
+    test_image = image.resize((180, 180))  # Resize the input image to (180, 180)
     test_image = tf.keras.preprocessing.image.img_to_array(test_image)
-    # test_image = test_image / 255.0
     test_image = np.expand_dims(test_image, axis=0)
 
     class_names = ['actinic keratosis',
@@ -46,8 +43,7 @@ def predict_class(image):
 
     predictions = classifier_model.predict(test_image)
     predictions = tf.where(predictions < 0.5, 0, 1)
-    # scores = tf.nn.softmax(predictions)
-    scores =predictions.numpy()
+    scores = predictions.numpy()
     image_class = class_names[np.argmax(scores)]
     result = 'The image predicted is : {}'.format(image_class)
     return result
