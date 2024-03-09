@@ -27,9 +27,11 @@ def main():
 def predict_class(image):
     classifier_model = tf.keras.models.load_model('skin_detect_model.h5')
     # shape = ((75, 100, 3))  # Expected input shape of the model
-    test_image = image.resize((100, 75))  # Resize the input image to (100, 75)
+    test_image = image.resize((3, 3))  
     test_image = tf.keras.preprocessing.image.img_to_array(test_image)
     test_image = np.expand_dims(test_image, axis=0)
+    test_image = np.expand_dims(test_image, axis=3)  # Expand dims to match (batch_size, height, width, channels, filters)
+    test_image = np.repeat(test_image, 32, axis=-1)  # Repeat the image along the filters dimension
 
     class_names = ['actinic keratosis',
                    'basal cell carcinoma',
