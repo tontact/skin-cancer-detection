@@ -6,6 +6,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
 # Load the model
 model = tf.keras.models.load_model('skin_detect_model.h5')
+model.summary()
 
 def preprocess_image(uploaded_image):
     resized_image = uploaded_image.resize((100, 75))  # Resize image to match model input shape
