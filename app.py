@@ -1,49 +1,56 @@
-import numpy as np
-from PIL import Image
-import tensorflow as tf
 import streamlit as st
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing.image import img_to_array
-# Load the model
-model = tf.keras.models.load_model('skin_detect_model.h5')
-model.summary()
+from PIL import Image, ImageOps
+import matplotlib.pyplot as plt
+import tensorflow as tf
+import numpy as np
+from keras import preprocessing
+from keras.models import load_model
+from keras.activations import sigmoid
+import os
+import h5py
 
-def preprocess_image(uploaded_image):
-    resized_image = uploaded_image.resize((100, 75))  # Resize image to match model input shape
-    image_array = np.array(resized_image) / 255.0  # Normalize pixel values
-    image_array = np.expand_dims(image_array, axis=0)
-    return image_array
-
-def prediction(image_array):
-    pred = model.predict(np.expand_dims(image_array, axis=0))
-    return pred
+st.title(':blue[MLFlow Prediction App]')
+st.header('Skin Cancer Prediction')
+st.text("Upload a skin cancer Image for image classification")
 
 def main():
-    st.title('Skin Lesion Classifier')
+    file_uploaded = st.file_uploader('Choose the file', type = ['jpg', 'png', 'jpeg'])
+    if file_uploaded is not None:
+        image = Image.open(file_uploaded)
+        figure = plt.figure()
+        plt.imshow(image)
+        plt.axis('off')
+        result = predict_class(image)
+        st.write(result)
+        st.pyplot(figure)
 
-    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image.', use_column_width=True)
-        image_array = preprocess_image(image)
+def predict_class(image):
+    # classifier_model = mod('MlFlow.h5')
+    classifier_model = tf.keras.models.load_model('MlFlow_softmax_sparse.h5')
+    shape = ((180, 180, 3))
+    # model = tf.keras.Sequential(classifier_model)
+    test_image = image.resize((180, 180))
+    test_image = tf.keras.preprocessing.image.img_to_array(test_image)
+    # test_image = test_image / 255.0
+    test_image = np.expand_dims(test_image, axis=0)
 
-        # Make predictions
-        ans = prediction(image_array)
-        classes = ['Melanocytic nevi',
-                   'Melanoma',
-                   'Benign keratosis-like lesions',
-                   'Basal cell carcinoma',
-                   'Actinic keratoses',
-                   'Vascular lesions',
-                   'Dermatofibroma']
+    class_names = ['actinic keratosis',
+                   'basal cell carcinoma',
+                   'dermatofibroma',
+                   'melanoma',
+                   'nevus',
+                   'pigmented benign keratosis',
+                   'seborrheic keratosis',
+                   'squamous cell carcinoma',
+                   'vascular lesion']
 
-        # Print prediction results
-        st.subheader("Prediction Probabilities:")
-        for i in range(len(classes)):
-            st.write(f"{classes[i]}: {ans[0][i]}")
+    predictions = classifier_model.predict(test_image)
+    predictions = tf.where(predictions < 0.5, 0, 1)
+    # scores = tf.nn.softmax(predictions)
+    scores =predictions.numpy()
+    image_class = class_names[np.argmax(scores)]
+    result = 'The image predicted is : {}'.format(image_class)
+    return result
 
-        result = 'The image predicted is : {}'.format(classes[np.argmax(ans)])
-        st.success(result)
-
-if __name__ == "__main__":
+if __name__ =="__main__":
     main()
