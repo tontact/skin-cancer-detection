@@ -25,7 +25,7 @@ def prediction(image_array):
 
 def main():
     st.title("Prediction App")
-    st.markdown(title_markdown, unsafe_allow_html=True)
+    st.title(title_markdown, unsafe_allow_html=True)
 
     st.header('Skin Cancer Classification')
     st.text("Upload a skin Image for image classification")
