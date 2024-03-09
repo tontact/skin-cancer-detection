@@ -21,7 +21,7 @@ def prediction(image_array):
     return pred
 
 def main():
-    st.markdown(":blue[Prediction App]")
+    st.title(":blue[Prediction App]")
     st.header('Skin Cancer Classification')
     st.text("Upload a skin Image for image classification")
 
