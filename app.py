@@ -10,6 +10,7 @@ model = tf.keras.models.load_model('skin_detect_model.h5')
 def preprocess_image(uploaded_image):
     resized_image = uploaded_image.resize((100, 75))  # Resize image to match model input shape
     image_array = np.array(resized_image) / 255.0  # Normalize pixel values
+    image_array = np.expand_dims(image_array, axis=0)
     return image_array
 
 def prediction(image_array):
