@@ -21,7 +21,8 @@ def prediction(image_array):
     return pred
 
 def main():
-    st.title(":blue[Prediction App]")
+    # st.title(":blue[Prediction App]")
+    st.title("<h1 style='color: blue;'>Prediction App</h1>", unsafe_allow_html=True)
     st.header('Skin Cancer Classification')
     st.text("Upload a skin Image for image classification")
 
