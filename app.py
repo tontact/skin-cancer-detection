@@ -9,9 +9,6 @@ import streamlit as st
 # st.text("Upload a skin cancer Image for image classification")
 # Load the model
 model = tf.keras.models.load_model('skin_detect_model.h5')
-title_markdown = """
-<h1><span style='color: blue;'>Streamlit</span> is <span style='color: blue;'>cool</span> 😎</h1>
-"""
 
 def preprocess_image(uploaded_image):
     resized_image = uploaded_image.resize((100, 75))
@@ -25,8 +22,7 @@ def prediction(image_array):
 
 def main():
     st.title("Prediction App")
-    st.title(title_markdown, unsafe_allow_html=True)
-
+    
     st.header('Skin Cancer Classification')
     st.text("Upload a skin Image for image classification")
 
