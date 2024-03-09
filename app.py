@@ -26,7 +26,7 @@ def main():
 
 def predict_class(image):
     # classifier_model = mod('MlFlow.h5')
-    classifier_model = tf.keras.models.load_model('MlFlow_softmax_sparse.h5')
+    classifier_model = tf.keras.models.load_model('skin_detect_model..h5')
     shape = ((180, 180, 3))
     # model = tf.keras.Sequential(classifier_model)
     test_image = image.resize((180, 180))
