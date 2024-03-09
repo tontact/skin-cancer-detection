@@ -4,9 +4,9 @@ from PIL import Image
 import tensorflow as tf
 import streamlit as st
 
-st.title(':blue[MLFlow Prediction App]')
-st.header('Skin Cancer Prediction')
-st.text("Upload a skin cancer Image for image classification")
+# st.title(':blue[MLFlow Prediction App]')
+# st.header('Skin Cancer Prediction')
+# st.text("Upload a skin cancer Image for image classification")
 # Load the model
 model = tf.keras.models.load_model('skin_detect_model.h5')
 
@@ -21,7 +21,10 @@ def prediction(image_array):
     return pred
 
 def main():
-    st.title("Skin Lesion Classification")
+    st.title(":blue[Prediction App]")
+    st.header('Skin Cancer Classification')
+    st.text("Upload a skin cancer Image for image classification")
+
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
