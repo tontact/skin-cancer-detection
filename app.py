@@ -1,17 +1,14 @@
-import streamlit as st
-from PIL import Image, ImageOps
-import matplotlib.pyplot as plt
-import tensorflow as tf
+import io
 import numpy as np
-from keras import preprocessing
-from keras.models import load_model
-from keras.activations import sigmoid
-import os
-import h5py
+from PIL import Image
+import tensorflow as tf
+import streamlit as st
 
 st.title(':blue[MLFlow Prediction App]')
 st.header('Skin Cancer Prediction')
 st.text("Upload a skin cancer Image for image classification")
+# Load the model
+model = tf.keras.models.load_model('skin_detect_model.h5')
 
 def preprocess_image(uploaded_image):
     resized_image = uploaded_image.resize((100, 75))
