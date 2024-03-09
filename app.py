@@ -14,7 +14,7 @@ st.header('Skin Cancer Prediction')
 st.text("Upload a skin cancer Image for image classification")
 
 def main():
-    file_uploaded = st.file_uploader('Choose the file', type = ['jpg', 'png', 'jpeg'])
+    file_uploaded = st.file_uploader('Choose the file', type=['jpg', 'png', 'jpeg'])
     if file_uploaded is not None:
         image = Image.open(file_uploaded)
         figure = plt.figure()
@@ -26,8 +26,8 @@ def main():
 
 def predict_class(image):
     classifier_model = tf.keras.models.load_model('skin_detect_model.h5')
-    shape = ((180, 180, 3))
-    test_image = image.resize((180, 180))  # Resize the input image to (180, 180)
+    shape = ((75, 100, 3))  # Expected input shape of the model
+    test_image = image.resize((100, 75))  # Resize the input image to (100, 75)
     test_image = tf.keras.preprocessing.image.img_to_array(test_image)
     test_image = np.expand_dims(test_image, axis=0)
 
@@ -48,5 +48,5 @@ def predict_class(image):
     result = 'The image predicted is : {}'.format(image_class)
     return result
 
-if __name__ =="__main__":
+if __name__ == "__main__":
     main()
