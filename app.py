@@ -25,11 +25,11 @@ def main():
     st.header('Skin Cancer Classification')
     st.text("Upload a skin Image for image classification")
 
-    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        # st.image(image, caption='Uploaded Image', use_column_width=True)
+        st.image(image, caption='Uploaded Image', use_column_width=True)
         image_array = preprocess_image(image)
 
         # Make predictions
