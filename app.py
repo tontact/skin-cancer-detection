@@ -24,6 +24,8 @@ def main():
     st.title("Prediction App")
     
     st.header('Skin Cancer Classification')
+    st.subheader("This also works in :blue[titles and headers]")
+
     st.text("Upload a skin Image for image classification")
 
     uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
